@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tci_main_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/track_content_info_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="Title"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/track_content_info_duration"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/track_content_info_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:ellipsize="marquee"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="Duration"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/track_content_info_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="Author" />
+
+    <TextView
+        android:id="@+id/track_content_info_album"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="Album" />
+
+    <Button
+        android:id="@+id/tci_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add to queue" />
+</LinearLayout>
+
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <!-->Spotify colors: </-->
+    <color name="mainBackground">#BF67B560</color>
+    <color name="color1">#0068B661</color>
+
+
+    <color name="progressBarLoaded">#BF68B661</color>
+    <color name="progressBar">#3368B661</color>
+
+
+    <!-->Phone colors: </-->
+
+    <!-->YouTube colors: </-->
+
+</resources>

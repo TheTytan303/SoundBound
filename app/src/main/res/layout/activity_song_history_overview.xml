@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SongHistoryOverviewActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/asho_tab_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/asho_tab_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="tabSearch"
+            android:text="search" />
+
+        <Button
+            android:id="@+id/asho_tab_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="tabPlayer"
+            android:text="player" />
+
+        <Button
+            android:id="@+id/asho_tab_lists"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="tabLists"
+            android:text="lists" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/asho_player_fragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/asho_tab_layout">
+
+        <TextView
+            android:id="@+id/asho_textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Song Queue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/asho_comming_soon"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/asho_textView2"></androidx.recyclerview.widget.RecyclerView>
+
+        <LinearLayout
+            android:id="@+id/asho_player_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/asho_comming_soon">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <views.CircleImageView
+                        android:id="@+id/asho_player_civ"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@android:drawable/ic_menu_help" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/asho_cursong_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Title"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/asho_cursong_author"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Author"
+                            android:textColor="#65222020" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/asho_player_timebar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/asho_player_pause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="pause"
+                    android:visibility="gone"
+                    app:srcCompat="@android:drawable/ic_media_pause" />
+
+                <ImageButton
+                    android:id="@+id/asho_player_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="play"
+                    app:srcCompat="@android:drawable/ic_media_play" />
+
+                <ImageButton
+                    android:id="@+id/asho_player_skip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="skip"
+                    app:srcCompat="@android:drawable/ic_media_ff" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/asho_textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Song History"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/asho_player_view" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/asho_song_history"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/asho_textView1">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/asho_player_ad"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#58585A"
+            android:clickable="true"
+            android:text="\n There should be an AD, but..."
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/asho_song_history" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/asho_search_fragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/asho_tab_layout">
+
+        <LinearLayout
+            android:id="@+id/asho_search_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/asho_search_bar_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:ems="10"
+                android:hint="Title"
+                android:inputType="textNoSuggestions"
+                android:text="OSTR" />
+
+            <ImageButton
+                android:id="@+id/asho_search_bar_button"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.15"
+                android:background="#00FFFFFF"
+                android:clickable="true"
+                android:onClick="onSearchClick"
+                app:srcCompat="@android:drawable/ic_search_category_default" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/asho_search_bar">
+
+
+            <LinearLayout
+                android:id="@+id/asho_spotify"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.33"
+                android:background="@color/mainBackground"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/asho_spotify_part_progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:max="100"
+                        android:progress="100"
+                        android:progressDrawable="@drawable/spotify_part_progressbar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="#0067B560"
+                        android:gravity="center"
+                        android:text="Spotify"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/spotify_song_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <ProgressBar
+                        android:id="@+id/asho_connecting"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/asho_connect_to_spotify"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="#40FFFFFF"
+                        android:onClick="connectToSpotify"
+                        android:text="Tap to connect to  spotify app"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/asho_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.33"
+                android:background="#BF7693E6"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/asho_phone_part_progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:max="100"
+                        android:progress="100"
+                        android:progressDrawable="@drawable/phone_part_progressbar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:background="#000093E6"
+                        android:gravity="center"
+                        android:text="Phone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/get_phone_songs_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#40FFFFFF"
+                        android:text="Tap to search phone \n for songs"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ProgressBar
+                        android:id="@+id/asho_loadingPB"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/phone_loading_progressbar"
+                        android:rotation="270"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.501" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/phone_songs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.51"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/asho_youtube"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.33"
+                android:background="#BFEB5858"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/asho_yt_part_progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:max="100"
+                        android:progress="100"
+                        android:progressDrawable="@drawable/yt_part_progressbar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:background="#00EB5757"
+                        android:gravity="center"
+                        android:text="YouTube"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/yt_songs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:onClick="connectToYT"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <Button
+                        android:id="@+id/connect_to_youtube"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="#40FFFFFF"
+                        android:onClick="connectToYT"
+                        android:text="Tap to connect to youtube"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/asho_lists_fragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/asho_tab_layout">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/player_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <fragment
+            android:id="@+id/youtube_fragment"
+            android:name="com.google.android.youtube.player.YouTubePlayerFragment"
+            android:layout_width="200dp"
+            android:layout_height="110dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <views.CircleImageView
+        android:id="@+id/circleImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/galactic_1"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_continue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.495">
+
+    </views.CircleImageView>
+
+    <Button
+        android:id="@+id/main_activity_continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="288dp"
+        android:onClick="goOn"
+        android:text="Contin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="but"
+        android:text="Button"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="487dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
