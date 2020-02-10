@@ -1,4 +1,4 @@
-package com.soundbound.phoneSongs;
+package com.soundbound.outer.API.songProviders.phoneSongs;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;

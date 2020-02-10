@@ -1,11 +1,6 @@
-package com.soundbound.recyclerView;
+package com.soundbound.View.views.recyclerView;
 
 import android.app.Dialog;
-import android.content.ClipData;
-import android.content.ClipDescription;
-import android.graphics.Bitmap;
-import android.os.Build;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.soundbound.R;
 import com.soundbound.SimpleSong;
-import com.soundbound.phoneSongs.PhoneController;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import views.CircleImageView;
+import com.soundbound.View.views.CircleImageView;
 
 public class SimpleSongViewAdapter extends RecyclerView.Adapter<SimpleSongViewAdapter.SongViewHolder> {
     private List<SimpleSong> tracks;

@@ -1,4 +1,4 @@
-package com.soundbound.recyclerView;
+package com.soundbound.View.views.recyclerView;
 
 import android.app.Dialog;
 import android.view.LayoutInflater;
@@ -17,7 +17,7 @@ import com.spotify.protocol.types.Track;
 
 import java.util.List;
 
-import views.CircleImageView;
+import com.soundbound.View.views.CircleImageView;
 
 public class SpotifySongViewAdapter extends RecyclerView.Adapter<SpotifySongViewAdapter.SpotifySongViewHolder> {
     private List<Track> tracks;

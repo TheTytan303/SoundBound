@@ -9,9 +9,7 @@ import com.google.api.services.youtube.YouTube;
 import com.soundbound.SimpleSong;
 
 import com.google.api.services.youtube.model.*;
-import com.soundbound.phoneSongs.PhoneController;
-
-import org.json.JSONObject;
+import com.soundbound.outer.API.songProviders.phoneSongs.PhoneController;
 
 import java.io.IOException;
 import java.io.InputStream;

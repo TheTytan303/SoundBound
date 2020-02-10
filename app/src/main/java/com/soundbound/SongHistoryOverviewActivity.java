@@ -19,27 +19,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubePlayerFragment;
-import com.soundbound.phoneSongs.PhoneController;
+import com.soundbound.outer.API.songProviders.phoneSongs.PhoneController;
 import com.soundbound.player.SongPlayer;
-import com.soundbound.recyclerView.SimpleSongViewAdapter;
+import com.soundbound.View.views.recyclerView.SimpleSongViewAdapter;
 import com.soundbound.spotifySongs.SpotifyController;
 import com.soundbound.youtubeSongs.YoutubeConroller;
 import com.spotify.protocol.types.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
-
-import net.openid.appauth.AuthorizationServiceConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +49,6 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
         PhoneController.psRemoteControllerListener,
         YoutubeConroller.youtubeListener,
         SimpleSongViewAdapter.songAdapterListener {
-
-
     //---------------------------------------------------------------------------------Values
     private static final int READ_EXTERNAL_STORAGE_PERMMISION_REQUEST_CODE=10;
     private static final int WRITE_EXTERNAL_STORAGE_PERMMISION_REQUEST_CODE=11;

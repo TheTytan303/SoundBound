@@ -52,7 +52,7 @@
         android:id="@+id/asho_player_fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +97,7 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <views.CircleImageView
+                    <com.soundbound.View.views.CircleImageView
                         android:id="@+id/asho_player_civ"
                         android:layout_width="75dp"
                         android:layout_height="75dp"
@@ -212,7 +212,7 @@
         android:id="@+id/asho_search_fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
         app:layout_constraintStart_toStartOf="@+id/linearLayout3"

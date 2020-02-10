@@ -1,4 +1,4 @@
-package views;
+package com.soundbound.View.views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

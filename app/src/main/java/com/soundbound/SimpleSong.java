@@ -1,15 +1,10 @@
 package com.soundbound;
 
 import android.graphics.Bitmap;
-import android.service.carrier.CarrierMessagingService;
 
-import com.soundbound.phoneSongs.PhoneController;
 import com.spotify.android.appremote.api.ImagesApi;
-import com.spotify.protocol.client.CallResult;
 import com.spotify.protocol.types.Image;
 import com.spotify.protocol.types.Track;
-
-import java.util.List;
 
 public class SimpleSong {
     public enum Type {SPOTIFY, PHONE, YOUTUBE};

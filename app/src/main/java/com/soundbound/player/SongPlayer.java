@@ -1,27 +1,21 @@
 package com.soundbound.player;
 
-import android.net.IpSecManager;
-import android.os.AsyncTask;
-import android.os.Handler;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.youtube.player.YouTubePlayer;
 import com.soundbound.SimpleSong;
-import com.soundbound.phoneSongs.PhoneController;
-import com.soundbound.recyclerView.SimpleSongViewAdapter;
+import com.soundbound.outer.API.songProviders.phoneSongs.PhoneController;
+import com.soundbound.View.views.recyclerView.SimpleSongViewAdapter;
 import com.soundbound.spotifySongs.SpotifyController;
 import com.soundbound.youtubeSongs.YoutubeConroller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executor;
 
-import views.CircleImageView;
+import com.soundbound.View.views.CircleImageView;
 
 public class SongPlayer implements Runnable, BackPlayer, YoutubeConroller.loadListener {
     private static int PB_RATE = 1;

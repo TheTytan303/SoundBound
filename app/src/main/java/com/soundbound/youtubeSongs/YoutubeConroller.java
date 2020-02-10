@@ -1,16 +1,12 @@
 package com.soundbound.youtubeSongs;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.net.wifi.hotspot2.pps.Credential;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentManager;
 
-import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -24,8 +20,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.YouTubeScopes;
-import com.soundbound.Main2Activity;
-import com.soundbound.R;
 import com.soundbound.SimpleSong;
 import com.soundbound.player.Player;
 

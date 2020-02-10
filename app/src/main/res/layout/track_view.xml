@@ -18,14 +18,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <views.CircleImageView
+        <com.soundbound.View.views.CircleImageView
             android:id="@+id/tv_main_image"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:scaleType="fitCenter"
             android:src="@drawable/note_sign2">
 
-        </views.CircleImageView>
+        </com.soundbound.View.views.CircleImageView>
 
         <TextView
             android:id="@+id/tv_track_title"

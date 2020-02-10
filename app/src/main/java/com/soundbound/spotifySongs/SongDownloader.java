@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import android.widget.ProgressBar;
 
 import com.soundbound.SimpleSong;
-import com.soundbound.phoneSongs.PhoneController;
+import com.soundbound.outer.API.songProviders.phoneSongs.PhoneController;
 import com.spotify.android.appremote.api.ImagesApi;
 
 import org.json.JSONArray;

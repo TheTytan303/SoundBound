@@ -1,4 +1,4 @@
-package com.soundbound;
+package com.soundbound.View;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.extensions.android.http.AndroidHttp;
