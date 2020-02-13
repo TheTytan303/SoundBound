@@ -341,15 +341,17 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
     }
     @Override
     public void onTrackReturned(SimpleSong track) {
-        if(spotifyTrackHistory.size() == 0){
-            spotifyTrackHistory.add(track);
-        }
-        if(spotifyTrackHistory.get(spotifyTrackHistory.size()-1).title.compareTo(track.title) !=0){
-            spotifyTrackHistory.add(track);
-        }
-        searchedSpotifySongs.clear();
-        searchedSpotifySongs.addAll(spotifyTrackHistory);
-        spotifyTrackHistoryAdapter.notifyDataSetChanged();
+        this.votes.add(track);
+        this.votesAdapter.notifyDataSetChanged();
+        //if(spotifyTrackHistory.size() == 0){
+        //    spotifyTrackHistory.add(track);
+        //}
+        //if(spotifyTrackHistory.get(spotifyTrackHistory.size()-1).title.compareTo(track.title) !=0){
+        //    spotifyTrackHistory.add(track);
+        //}
+        //searchedSpotifySongs.clear();
+        //searchedSpotifySongs.addAll(spotifyTrackHistory);
+        //spotifyTrackHistoryAdapter.notifyDataSetChanged();
     }
     @Override
     public void connectionError(){
@@ -579,7 +581,12 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
     public void refresh(View v){
         //TODO collect votes
         if(this.host){
-           APIConnector.getInstance().getVotes(user,room,this,youtubeRemote, spotifyRemote);
+            this.votes.clear();
+            try{
+                APIConnector.getInstance().getVotes(user,room,this,youtubeRemote, spotifyRemote);
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
         }else{
             APIConnector.getInstance().vote(user,room,vote);
         }
@@ -594,7 +601,6 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
 
     @Override
     public void onVotesCollected(Map<String, SimpleSong> votes) {
-        this.votes.clear();
         this.votes.addAll(votes.values());
         this.votesAdapter.notifyDataSetChanged();
     }

@@ -116,7 +116,7 @@ public class YoutubeConroller implements Searcher.YTSearcherListener, Player, Yo
     }
     public void loadSong(String id, SimpleSongYTDownloader.YTSingleSongListener listener){
         SimpleSongYTDownloader downloader = new SimpleSongYTDownloader(id,service, listener);
-
+        downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

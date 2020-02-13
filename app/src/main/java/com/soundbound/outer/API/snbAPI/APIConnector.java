@@ -183,7 +183,7 @@ public class APIConnector {
         implements SimpleSongYTDownloader.YTSingleSongListener {
         Map<String, String> map;
         ConnectorListener listener;
-        Map<String, SimpleSong> votes;
+        Map<String, SimpleSong> votes = new HashMap<>();
         Future<String> response;
         YoutubeConroller conroller;
         SpotifyController spotifyController;
@@ -222,9 +222,8 @@ public class APIConnector {
                         }
                     }
                 }
-
             }
-            return votes;
+            return null;
         }
         @Override
         protected void onPostExecute(Map<String, SimpleSong> stringSimpleSongMap) {
@@ -234,11 +233,13 @@ public class APIConnector {
 
         @Override
         public void onSongsSearched(SimpleSong song) {
+            Map<String, SimpleSong> votes = new HashMap<>();
             for(Map.Entry<String, String > entry: map.entrySet()){
                 if(entry.getValue().compareTo(typeToString(song.type)+song.id) == 0){
                     votes.put(entry.getKey(),song);
                 }
             }
+            listener.onVotesCollected(votes);
         }
     }
     private String typeToString(SimpleSong.Type type){

@@ -9,6 +9,8 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.SearchResultSnippet;
+import com.google.api.services.youtube.model.Video;
+import com.google.api.services.youtube.model.VideoListResponse;
 import com.soundbound.outer.API.songProviders.Models.SimpleSong;
 import com.soundbound.outer.API.songProviders.phoneSongs.PhoneController;
 
@@ -54,36 +56,39 @@ public class SimpleSongYTDownloader extends AsyncTask<Void,Integer, SimpleSong> 
         try {
             //YouTube.Videos.List result = service.videos().list(name);
             //SearchListResponse result = service.search().list("Snippet").setQ(name).setType("video").setMaxResults(20l).setVideoCategoryId("10").execute();
-            YouTube.Videos.List result = service.videos().list("snippet").setId(id);
-            //System.out.println(result.toString());
-            //int count = searchResult.size();
-            //int i = 0;
+            //SearchListResponse result = service.search().list("Snippet").setQ(name).setType("video").setMaxResults(20l).setVideoCategoryId("10").execute();
+            VideoListResponse result = service.videos().list("snippet").setId(id).execute();
             returnVale = new SimpleSong();
-            returnVale.id = result.getId();
-            String title = (String) result.get("title");
-            String[] tab = title.split("-");
-            if (tab.length != 2) {
-                returnVale.title = title;
-                returnVale.author = (String) result.get("channelTitle");
-            } else {
-                returnVale.title = tab[1];
-                returnVale.author = tab[0];
-            }
             returnVale.type = SimpleSong.Type.YOUTUBE;
-            returnVale.album = (String) result.get("channelTitle");
-            //TODO change address - yt images
-            returnVale.cover = downloadBmp("https://i.ytimg.com/vi/"+returnVale.id+"/default.jpg");
-            returnVale.duration = 100000;
+            for(Video v: result.getItems()){
+                returnVale.id =v.getId();
+                String title = v.getSnippet().getTitle();
+                String[] tab = title.split("-");
+                if (tab.length < 2) {
+                    returnVale.title = title;
+                    returnVale.author = (String) result.get("channelTitle");
+                } else {
+                    returnVale.title = tab[1];
+                    if(tab.length > 2)
+                    for(int i =2 ;i<tab.length;i++){
+                        returnVale.title =returnVale.title.concat(tab[i]);
+                    }
+                    returnVale.author = tab[0];
+                }
+                returnVale.album = v.getSnippet().getChannelTitle();
+                returnVale.cover = downloadBmp(v.getSnippet().getThumbnails().getStandard().getUrl());
+                //returnVale.cover = downloadBmp("https://i.ytimg.com/vi/"+returnVale.id+"/default.jpg");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return returnVale;
     }
 
     @Override
     protected void onPostExecute(SimpleSong simpleSong) {
         listener.onSongsSearched(returnVale);
-        super.onPostExecute(simpleSong);
+        super.onPostExecute(returnVale);
     }
 
     @Override
