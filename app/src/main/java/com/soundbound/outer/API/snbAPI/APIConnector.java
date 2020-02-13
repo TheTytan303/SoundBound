@@ -107,7 +107,8 @@ public class APIConnector {
         String url = API + "/room/"+room.getId()+"/vote";
         Map<String, String> headers = new HashMap<>();
         headers.put("authorization",user.getToken());
-        RequestTask request = new RequestTask(RequestTask.RequestType.POST,url,body,headers,null);
+        addSong(song);
+        RequestTask request = new RequestTask(RequestTask.RequestType.PUT,url,body,headers,null);
         Requester.getResponse(request);
     }
 
@@ -156,25 +157,18 @@ public class APIConnector {
             return null;
         }
     }
-    public Room joinRoom(String id, String token, User client){
+    public Room joinRoom(String id, String token, User client) throws ExecutionException, InterruptedException, JSONException {
         String url = API + "/room/"+id+"/owner";
         String body ="{\n" +
                 "  \"owner_token\": \""+token+"\"\n" +
                 "}";
         Map<String, String> headers = new HashMap<>();
         headers.put("authorization",client.getToken());
-        RequestTask request = new RequestTask(RequestTask.RequestType.POST,url,body,headers,null);
+        RequestTask request = new RequestTask(RequestTask.RequestType.PUT,url,body,headers,null);
         Future<String> response = Requester.getResponse(request);
         Room returnVale = null;
-        try {
-            returnVale = deJSONRoom(response.get());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        returnVale = deJSONRoom(response.get());
+        //TODO service already joined
         return returnVale;
     }
     private Room deJSONRoom(String JSON) throws JSONException {

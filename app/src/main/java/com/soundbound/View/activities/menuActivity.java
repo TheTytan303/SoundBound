@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -31,12 +32,6 @@ public class menuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         this.user = (User)getIntent().getSerializableExtra("user");
         System.out.println("damn");
-        String body = "{\n" +
-                "    \"Eomer\": \"mojaPjosenka2\",\n" +
-                "    \"Theodred\": \"mojaPjosenka2\",\n" +
-                "    \"Eowina\": \"mojaPjosenka\"\n" +
-                "}";
-
     }
 
 
@@ -44,7 +39,14 @@ public class menuActivity extends AppCompatActivity {
     public void join(View v){
         String id = ((EditText)findViewById(R.id.am_join_room_id)).getText().toString();
         String token = ((EditText)findViewById(R.id.am_join_room_token)).getText().toString();
-        Room room = APIConnector.getInstance().joinRoom(id,token,user);
+        Room room = null;
+        try {
+            room = APIConnector.getInstance().joinRoom(id,token,user);
+        } catch (Exception e) {
+            ((TextView)findViewById(R.id.am_error_tv)).setText(e.getMessage());
+            e.printStackTrace();
+            return;
+        }
         System.out.println("damn");
         Intent contin = new Intent(this, SongHistoryOverviewActivity.class);
         contin.putExtra("host", false);

@@ -121,15 +121,17 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_history_overview);
         getSupportActionBar().hide();
-
         room = (Room)getIntent().getSerializableExtra("room");
         user = (User)getIntent().getSerializableExtra("user");
         host = getIntent().getBooleanExtra("host", false);
+        currentFragment = findViewById(R.id.asho_search_fragment);
 
         if(host){
             showHostUI();
+            tabSearch(null);
         }else {
             showClientUI();
+            tabSearch(null);
         }
 
         this.queue = new ConcurrentLinkedQueue<>();
@@ -428,6 +430,10 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
         findViewById(R.id.asho_tab_votes).setVisibility(View.GONE);
         findViewById(R.id.asho_tab_room).setVisibility(View.VISIBLE);
         findViewById(R.id.asho_phone).setVisibility(View.GONE);
+        TextView tv = findViewById(R.id.asho_room_name);
+        tv.setText(room.getName());
+        tv = findViewById(R.id.asho_room_id);
+        tv.setText("id: " + room.getId());
         tabRoom();
 
     }
