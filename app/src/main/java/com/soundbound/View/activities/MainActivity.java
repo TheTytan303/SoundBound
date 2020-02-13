@@ -1,40 +1,57 @@
-package com.soundbound.View;
+package com.soundbound.View.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-
-import com.google.api.services.youtube.YouTubeScopes;
-
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.security.ProviderInstaller;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.soundbound.R;
-import com.soundbound.SongHistoryOverviewActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.net.ssl.SSLContext;
+
 public class MainActivity extends AppCompatActivity  {
-    private static final String[] SCOPES = { YouTubeScopes.YOUTUBE_READONLY };
-
-    static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
-    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
-    static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
 
-    private String PREF_ACCOUNT_NAME = "accountName";
-
-    GoogleAccountCredential mCredential;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String ytKey = getString(R.string.youtube_ID);
 
 
 
+
+
+
+        try {
+            // Google Play will install latest OpenSSL
+            ProviderInstaller.installIfNeeded(getApplicationContext());
+            SSLContext sslContext;
+            sslContext = SSLContext.getInstance("TLSv1.2");
+            sslContext.init(null, null, null);
+            sslContext.createSSLEngine();
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException
+                | NoSuchAlgorithmException | KeyManagementException e) {
+            e.printStackTrace();
+        }
     }
     public void but(View v){
-        Intent contin = new Intent(this, Main2Activity.class);
+        Intent contin = new Intent(this, LoginActivity.class);
         startActivity(contin);
     }
     public void goOn(View v){

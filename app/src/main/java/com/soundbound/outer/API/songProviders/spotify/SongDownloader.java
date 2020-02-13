@@ -1,4 +1,4 @@
-package com.soundbound.spotifySongs;
+package com.soundbound.outer.API.songProviders.spotify;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ProgressBar;
 
-import com.soundbound.SimpleSong;
+import com.soundbound.outer.API.songProviders.Models.SimpleSong;
 import com.soundbound.outer.API.songProviders.phoneSongs.PhoneController;
 import com.spotify.android.appremote.api.ImagesApi;
 

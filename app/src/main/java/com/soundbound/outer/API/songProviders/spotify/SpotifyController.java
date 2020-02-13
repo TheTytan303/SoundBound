@@ -1,51 +1,20 @@
-package com.soundbound.spotifySongs;
+package com.soundbound.outer.API.songProviders.spotify;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.session.MediaSession;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.util.ArrayMap;
 import android.widget.ProgressBar;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
-import com.android.volley.RequestQueue;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.soundbound.SimpleSong;
-import com.soundbound.player.BackPlayer;
-import com.soundbound.player.Player;
+import com.soundbound.outer.API.songProviders.Models.SimpleSong;
+import com.soundbound.View.player.BackPlayer;
+import com.soundbound.View.player.Player;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
-import com.spotify.android.appremote.api.ImagesApi;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
-import com.spotify.protocol.client.CallResult;
-import com.spotify.protocol.client.ErrorCallback;
-import com.spotify.protocol.types.Empty;
-import com.spotify.protocol.types.Image;
-import com.spotify.protocol.types.ImageUri;
 import com.spotify.protocol.types.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
-import org.json.JSONObject;
-
 import java.util.List;
-import java.util.Map;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class SpotifyController implements Connector.ConnectionListener, SongDownloader.SongDowloaderListener, Player {
 

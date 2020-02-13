@@ -1,14 +1,14 @@
-package com.soundbound.player;
+package com.soundbound.View.player;
 
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.soundbound.SimpleSong;
+import com.soundbound.outer.API.songProviders.Models.SimpleSong;
 import com.soundbound.outer.API.songProviders.phoneSongs.PhoneController;
 import com.soundbound.View.views.recyclerView.SimpleSongViewAdapter;
-import com.soundbound.spotifySongs.SpotifyController;
-import com.soundbound.youtubeSongs.YoutubeConroller;
+import com.soundbound.outer.API.songProviders.spotify.SpotifyController;
+import com.soundbound.outer.API.songProviders.youTube.YoutubeConroller;
 
 import java.util.List;
 import java.util.Timer;
@@ -40,7 +40,7 @@ public class SongPlayer implements Runnable, BackPlayer, YoutubeConroller.loadLi
 
     public List<SimpleSong>getHistory(){return history;}
 
-    public SongPlayer(ConcurrentLinkedQueue<SimpleSong> queue,List<SimpleSong> history, SimpleSongViewAdapter historyAdapter,SimpleSongViewAdapter queueAdapter, TextView titleTV,TextView authorTv, CircleImageView civ, ProgressBar pb, LinearLayout playerLayout){
+    public SongPlayer(ConcurrentLinkedQueue<SimpleSong> queue, List<SimpleSong> history, SimpleSongViewAdapter historyAdapter, SimpleSongViewAdapter queueAdapter, TextView titleTV, TextView authorTv, CircleImageView civ, ProgressBar pb, LinearLayout playerLayout){
         this.queue = queue;
         this.history =history;
         this.historyAdapter = historyAdapter;

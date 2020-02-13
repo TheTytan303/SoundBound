@@ -1,4 +1,4 @@
-package com.soundbound;
+package com.soundbound.outer.API.songProviders.Models;
 
 import android.graphics.Bitmap;
 

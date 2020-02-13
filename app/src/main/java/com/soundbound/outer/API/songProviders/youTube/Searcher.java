@@ -1,4 +1,4 @@
-package com.soundbound.youtubeSongs;
+package com.soundbound.outer.API.songProviders.youTube;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.widget.ProgressBar;
 
 import com.google.api.services.youtube.YouTube;
-import com.soundbound.SimpleSong;
+import com.soundbound.outer.API.songProviders.Models.SimpleSong;
 
 import com.google.api.services.youtube.model.*;
 import com.soundbound.outer.API.songProviders.phoneSongs.PhoneController;

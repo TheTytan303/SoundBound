@@ -1,4 +1,4 @@
-package com.soundbound.youtubeSongs;
+package com.soundbound.outer.API.songProviders.youTube;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -20,8 +20,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.YouTubeScopes;
-import com.soundbound.SimpleSong;
-import com.soundbound.player.Player;
+import com.soundbound.outer.API.songProviders.Models.SimpleSong;
+import com.soundbound.View.player.Player;
 
 import java.util.Arrays;
 import java.util.List;
@@ -113,6 +113,10 @@ public class YoutubeConroller implements Searcher.YTSearcherListener, Player, Yo
     public void search(String name, ProgressBar pb){
         Searcher searcher = new Searcher(name, service, this, pb);
         searcher.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+    public void loadSong(String id, SimpleSongYTDownloader.YTSingleSongListener listener){
+        SimpleSongYTDownloader downloader = new SimpleSongYTDownloader(id,service, listener);
+
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.soundbound;
+package com.soundbound.View.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,20 +25,29 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.soundbound.R;
+import com.soundbound.View.views.CircleImageView;
+import com.soundbound.outer.API.snbAPI.APIConnector;
+import com.soundbound.outer.API.songProviders.Models.Room;
+import com.soundbound.outer.API.songProviders.Models.SimpleSong;
+import com.soundbound.outer.API.songProviders.Models.User;
 import com.soundbound.outer.API.songProviders.phoneSongs.PhoneController;
-import com.soundbound.player.SongPlayer;
+import com.soundbound.View.player.SongPlayer;
 import com.soundbound.View.views.recyclerView.SimpleSongViewAdapter;
-import com.soundbound.spotifySongs.SpotifyController;
-import com.soundbound.youtubeSongs.YoutubeConroller;
+import com.soundbound.outer.API.songProviders.spotify.SpotifyController;
+import com.soundbound.outer.API.songProviders.youTube.SimpleSongYTDownloader;
+import com.soundbound.outer.API.songProviders.youTube.YoutubeConroller;
 import com.spotify.protocol.types.Track;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import pub.devrel.easypermissions.EasyPermissions;
@@ -48,7 +57,7 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
         SpotifyController.RemoteControllerListener,
         PhoneController.psRemoteControllerListener,
         YoutubeConroller.youtubeListener,
-        SimpleSongViewAdapter.songAdapterListener {
+        SimpleSongViewAdapter.songAdapterListener, APIConnector.ConnectorListener {
     //---------------------------------------------------------------------------------Values
     private static final int READ_EXTERNAL_STORAGE_PERMMISION_REQUEST_CODE=10;
     private static final int WRITE_EXTERNAL_STORAGE_PERMMISION_REQUEST_CODE=11;
@@ -94,7 +103,15 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
     SimpleSongViewAdapter historyAdapter;
     RecyclerView.LayoutManager historyLayoutManager;
 
+    RecyclerView votesRecyclerView;
+    SimpleSongViewAdapter votesAdapter;
+    RecyclerView.LayoutManager votesLayoutManager;
 
+    private User user;
+    private Room room;
+    private boolean host;
+    private List<SimpleSong> votes;
+    SimpleSong vote;
 
 
     //---------------------------------------------------------------------------------Interfaces
@@ -104,6 +121,17 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_history_overview);
         getSupportActionBar().hide();
+
+        room = (Room)getIntent().getSerializableExtra("room");
+        user = (User)getIntent().getSerializableExtra("user");
+        host = getIntent().getBooleanExtra("host", false);
+
+        if(host){
+            showHostUI();
+        }else {
+            showClientUI();
+        }
+
         this.queue = new ConcurrentLinkedQueue<>();
         phoneSongs = new ArrayList<>();
         findViewById(R.id.asho_player_ad).setOnClickListener(v -> Toast.makeText(getBaseContext(),"I don't give a fuck", Toast.LENGTH_SHORT).show());
@@ -114,6 +142,15 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
         loadingPB = findViewById(R.id.asho_loadingPB);
         loadingPB.setVisibility(View.GONE);
         phoneRemote = new PhoneController(this, this);
+
+        votes = new ArrayList<>();
+        votesAdapter =new SimpleSongViewAdapter(votes,this, queue);
+        votesLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        votesRecyclerView = findViewById(R.id.asho_votes_list);
+        votesRecyclerView.setAdapter(votesAdapter);
+        votesRecyclerView.setLayoutManager(votesLayoutManager);
+
+
 
         queueRecyclerView = findViewById(R.id.asho_comming_soon);
         queueAdapter = new SimpleSongViewAdapter(queue, this, queue);
@@ -128,6 +165,9 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
         historyRecyclerView = findViewById(R.id.asho_song_history);
         historyRecyclerView.setAdapter(historyAdapter);
         historyRecyclerView.setLayoutManager(historyLayoutManager);
+
+
+
         player = new SongPlayer(queue,history, historyAdapter,queueAdapter,
                 findViewById(R.id.asho_cursong_title), findViewById(R.id.asho_cursong_author),
                 findViewById(R.id.asho_player_civ), findViewById(R.id.asho_player_timebar),
@@ -163,7 +203,7 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
         //waitingForConnection();
 
         //---------YouTube
-        String ytKey =getString(R.string.youtube_ID);
+        String ytKey = getString(R.string.youtube_ID);
         YouTubePlayerFragment youTubePlayerFragment = (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
         youtubeRemote = new YoutubeConroller(this.getBaseContext(),this, youTubePlayerFragment, findViewById(R.id.player_parent));
         youTubePlayerFragment.initialize(ytKey, youtubeRemote);
@@ -175,7 +215,8 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_CODE){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
             switch (response.getType()) {
                 // Response was successful and contains auth token
@@ -188,9 +229,8 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
                 default:
                     // Handle other cases
             }
-        }
-        else {
-            switch(requestCode) {
+        } else {
+            switch (requestCode) {
                 case REQUEST_GOOGLE_PLAY_SERVICES:
                     if (resultCode != RESULT_OK) {
                         System.out.println(
@@ -222,7 +262,8 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
                         youtubeRemote.connected();
                     }
                     break;
-                default: break;
+                default:
+                    break;
             }
         }
     }
@@ -232,11 +273,14 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
         super.onStop();
         pause(null);
     }
-
-
     @Override
     public void onQueueChanged() {
-        queueAdapter.refreshData();
+        if(host){
+            queueAdapter.refreshData();
+        }else {
+            this.vote = queue.poll();
+            voteChanged();
+        }
     }
 
     //------------ phone:
@@ -267,13 +311,13 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
             spotifyTrackHistoryAdapter.notifyDataSetChanged();
             return;
         }
-        if(songs.get(0).type==SimpleSong.Type.PHONE){
+        if(songs.get(0).type== SimpleSong.Type.PHONE){
             searchedPhoneSongs.clear();
             searchedPhoneSongs.addAll(songs);
             phoneSongsAdapter.notifyDataSetChanged();
             return;
         }
-        if(songs.get(0).type==SimpleSong.Type.YOUTUBE){
+        if(songs.get(0).type== SimpleSong.Type.YOUTUBE){
             searchedYTSongs.clear();
             searchedYTSongs.addAll(songs);
             youtubeSongsAdapter.notifyDataSetChanged();
@@ -364,6 +408,39 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
         youtubeSongsRecyclerView.setLayoutManager(youtubeSongsLayoutManager);
 
     }
+
+    //---------------------------------------------------------------------------------Privates:
+    private void showHostUI(){
+        findViewById(R.id.asho_tab_player).setVisibility(View.VISIBLE);
+        findViewById(R.id.asho_tab_votes).setVisibility(View.VISIBLE);
+        findViewById(R.id.asho_tab_room).setVisibility(View.GONE);
+        //findViewById(R.id.asho_votes_fragment).setVisibility(View.VISIBLE);
+        TextView tv = findViewById(R.id.asho_votes_name);
+        tv.setText(room.getName());
+        tv = findViewById(R.id.asho_votes_id);
+        tv.setText("id: " + room.getId());
+        tv = findViewById(R.id.asho_votes_token);
+        String token = APIConnector.getInstance().getRoomToken(room,user);
+        tv.setText(token);
+    }
+    private void showClientUI(){
+        findViewById(R.id.asho_tab_player).setVisibility(View.GONE);
+        findViewById(R.id.asho_tab_votes).setVisibility(View.GONE);
+        findViewById(R.id.asho_tab_room).setVisibility(View.VISIBLE);
+        findViewById(R.id.asho_phone).setVisibility(View.GONE);
+        tabRoom();
+
+    }
+    private void voteChanged(){
+        TextView tv = findViewById(R.id.asho_room_vote_author);
+        tv.setText(vote.author);
+        tv = findViewById(R.id.asho_room_vote_title);
+        tv.setText(vote.title);
+        CircleImageView civ = findViewById(R.id.asho_room_vote_civ);
+        civ.setImageBitmap(vote.cover);
+        //TODO send vote
+    }
+
 
     //---------------------------------------------------------------------------------Public
     //------------- Buttons:
@@ -477,10 +554,29 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
         currentFragment = findViewById(R.id.asho_player_fragment);
         currentFragment.setVisibility(View.VISIBLE);
     }
+    public void tabVotes(View v){
+        currentFragment.setVisibility(View.GONE);
+        currentFragment = findViewById(R.id.asho_votes_fragment);
+        currentFragment.setVisibility(View.VISIBLE);
+    }
     public void tabLists(View v){
         currentFragment.setVisibility(View.GONE);
-        currentFragment = findViewById(R.id.asho_lists_fragment);
+        currentFragment = findViewById(R.id.asho_room_fragment);
         currentFragment.setVisibility(View.VISIBLE);
+    }
+    public void tabRoom(){
+        currentFragment.setVisibility(View.GONE);
+        currentFragment = findViewById(R.id.asho_room_fragment);
+        currentFragment.setVisibility(View.VISIBLE);
+
+    };
+    public void refresh(View v){
+        //TODO collect votes
+        if(this.host){
+           APIConnector.getInstance().getVotes(user,room,this,youtubeRemote, spotifyRemote);
+        }else{
+            APIConnector.getInstance().vote(user,room,vote);
+        }
     }
 
     public boolean checkPermission(@NonNull String permission){
@@ -488,6 +584,18 @@ public class SongHistoryOverviewActivity extends AppCompatActivity
     }
     public void requestPermission(@NonNull String permission, int code){
         ActivityCompat.requestPermissions(this, new String[] {permission},code);
+    }
+
+    @Override
+    public void onVotesCollected(Map<String, SimpleSong> votes) {
+        this.votes.clear();
+        this.votes.addAll(votes.values());
+        this.votesAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void errorOcurred(Exception e) {
+        System.out.println(e);
     }
 }
 /*

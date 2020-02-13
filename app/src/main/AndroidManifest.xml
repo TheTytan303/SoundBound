@@ -16,11 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Main2Activity"></activity>
+        <activity android:name=".View.activities.menuActivity"></activity>
+        <activity android:name=".View.activities.LoginActivity" />
         <activity
-            android:name=".SongHistoryOverviewActivity"
+            android:name=".View.activities.SongHistoryOverviewActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".View.MainActivity">
+        <activity android:name=".View.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

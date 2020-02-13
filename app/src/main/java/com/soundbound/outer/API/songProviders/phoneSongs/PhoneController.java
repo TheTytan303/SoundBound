@@ -16,8 +16,8 @@ import android.provider.MediaStore;
 import android.widget.ProgressBar;
 
 import com.soundbound.R;
-import com.soundbound.SimpleSong;
-import com.soundbound.player.Player;
+import com.soundbound.outer.API.songProviders.Models.SimpleSong;
+import com.soundbound.View.player.Player;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soundbound.R;
-import com.soundbound.spotifySongs.SpotifyController;
+import com.soundbound.outer.API.songProviders.spotify.SpotifyController;
 import com.spotify.protocol.types.Image;
 import com.spotify.protocol.types.Track;
 

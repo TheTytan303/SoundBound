@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soundbound.R;
-import com.soundbound.SimpleSong;
+import com.soundbound.outer.API.songProviders.Models.SimpleSong;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -79,7 +79,6 @@ public class SimpleSongViewAdapter extends RecyclerView.Adapter<SimpleSongViewAd
             Dialog dialog = new Dialog(v.getContext());
             dialog.setContentView(contextInfo);
             dialog.show();
-
         }
 
 
